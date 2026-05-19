@@ -28,9 +28,8 @@ export default function Login() {
       localStorage.setItem('complaint_token', res.data.token);
       localStorage.setItem('complaint_user', JSON.stringify(res.data.user));
       
-      // Navigate to tracking dashboard
-      navigate('/');
-      window.location.reload(); // Refresh to update navbar and state
+      // Navigate to tracking dashboard securely
+      window.location.href = '/#/';
     } catch (err) {
       setError(err.response?.data?.error || 'Authentication failed. Please verify your credentials.');
     } finally {

@@ -29,9 +29,8 @@ export default function Signup() {
       localStorage.setItem('complaint_token', res.data.token);
       localStorage.setItem('complaint_user', JSON.stringify(res.data.user));
       
-      // Navigate to dashboard
-      navigate('/');
-      window.location.reload(); // Refresh to update context
+      // Navigate to dashboard securely
+      window.location.href = '/#/';
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed. Please check your data.');
     } finally {

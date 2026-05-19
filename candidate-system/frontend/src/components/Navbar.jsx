@@ -11,8 +11,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('complaint_token');
     localStorage.removeItem('complaint_user');
-    navigate('/login');
-    window.location.reload(); // Refresh to clean memory
+    window.location.href = '/#/login';
   };
 
   const isActive = (path) => location.pathname === path;
