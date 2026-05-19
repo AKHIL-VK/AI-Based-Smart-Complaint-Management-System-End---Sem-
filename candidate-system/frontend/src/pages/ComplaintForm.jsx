@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FileText, Send, Sparkles, User, Mail, MapPin, Layers, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function ComplaintForm() {
   // Input fields state
@@ -46,7 +47,7 @@ export default function ComplaintForm() {
     setAiResult(null);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/analyze', {
+      const res = await axios.post(`${API_BASE}/ai/analyze`, {
         title,
         description,
         category
@@ -69,7 +70,7 @@ export default function ComplaintForm() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/complaints', {
+      const res = await axios.post(`${API_BASE}/complaints`, {
         name,
         email,
         title,

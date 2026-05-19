@@ -4,6 +4,7 @@ import {
   BarChart, ListFilter, Search, MapPin, Sparkles, RefreshCw, 
   Trash2, AlertTriangle, Layers, User, Calendar, Edit3, HelpCircle, CheckCircle, Clock
 } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function Dashboard() {
   const [complaints, setComplaints] = useState([]);
@@ -24,7 +25,7 @@ export default function Dashboard() {
     setLoading(true);
     setError('');
     try {
-      let url = 'http://localhost:5000/api/complaints';
+      let url = `${API_BASE}/complaints`;
       
       // If we are filtering by category
       if (filterCategory) {
@@ -51,7 +52,7 @@ export default function Dashboard() {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.get(`http://localhost:5000/api/complaints/search?location=${encodeURIComponent(searchLocation.trim())}`);
+      const res = await axios.get(`${API_BASE}/complaints/search?location=${encodeURIComponent(searchLocation.trim())}`);
       setComplaints(res.data);
     } catch (err) {
       setError('Location Search Failed: ' + (err.response?.data?.error || err.message));
@@ -68,7 +69,7 @@ export default function Dashboard() {
     else nextStatus = 'Pending';
 
     try {
-      const res = await axios.put(`http://localhost:5000/api/complaints/${id}`, { status: nextStatus });
+      const res = await axios.put(`${API_BASE}/complaints/${id}`, { status: nextStatus });
       // Update local state
       setComplaints(complaints.map(c => c._id === id ? { ...c, status: res.data.complaint.status } : c));
       if (selectedComplaint && selectedComplaint._id === id) {
@@ -85,7 +86,7 @@ export default function Dashboard() {
     if (!window.confirm('Are you sure you want to remove this complaint?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/complaints/${id}`);
+      await axios.delete(`${API_BASE}/complaints/${id}`);
       setComplaints(complaints.filter(c => c._id !== id));
       if (selectedComplaint && selectedComplaint._id === id) {
         setSelectedComplaint(null);

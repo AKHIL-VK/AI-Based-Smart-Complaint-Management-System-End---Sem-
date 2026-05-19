@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { LogIn, Lock, Mail, AlertTriangle, Sparkles } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ export default function Login() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post(`${API_BASE}/auth/login`, { email, password });
       
       // Store token and user data in localStorage
       localStorage.setItem('complaint_token', res.data.token);
